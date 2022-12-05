@@ -1,20 +1,19 @@
 # Predict Customer Churn
 
-- Project **Predict Customer Churn** of ML DevOps Engineer Nanodegree Udacity
+## Project Aim: 
+ **To Predict Customer Churn** of Bosch-Udacity Ai Accelerator Program (DevOps Engineer Nanodegree). 
 
-## Project Description
-In this project, the mentors provided us with a working ml project churn_notebook.ipynb and the goal of the project is to create a library file and a test file that respect the norms to develop a software.
+## Description
+> For this task, a pre-trained machine learning model is provided in the `churn_notebook.ipynb`. The goal is then to create a library and a test file that takes into account best software release practices.
 
-In this file, we present a sophisticated way to run our code. We should mention that this code uses python 3.6
+The `churn_notebook.ipynb` is written in python version 3 (3.6 or higher should run it just fine)
 
-## Files and data description
-Overview of the files and data present in the root directory. 
-
-All files are included in this directory 
+## Other files and data description
+File overview and data are in the root directory. All files are also included in this directory 
 
 ## Running Files
 How do you run your files? What should happen when you run your files?
-$ python churn_library
+```python churn_library```
 
 
 Running the Test file churn_script_logging_and_tests.py
