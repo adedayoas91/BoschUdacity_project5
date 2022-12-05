@@ -13,12 +13,12 @@ File overview and data are in the root directory. All files are also included in
 
 ## Running Files
 How do you run your files? What should happen when you run your files?
-```python churn_library```
 
+One easy way to run the files is by running ```python churn_library``` in the terminal
 
-Running the Test file churn_script_logging_and_tests.py
+Running the Test file `churn_script_logging_and_tests.py` can be done using
 
-pytest churn_script_logging_and_tests.py
+```pytest churn_script_logging_and_tests.py```
 
 we excetued the steps below
 
