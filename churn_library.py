@@ -1,12 +1,12 @@
 # library doc string
 '''
-Description: This module containes and optimizes= the given in churn_notebook.ipynb.
+Description: This module contains and optimizes= the given in churn_notebook.ipynb.
 This is the main file of the project 'Predict customer Churn
 with Clean Code' as part of the DevOps Engineering Nanodegree Program
 
-Author: Lawal Shakirat Adeyinka
+Author: Sadiq Adewale ADEDAYO
 
-Date: Nov. 4th, 2022
+Date: Dec. 12th, 2022
 
 Version: 0.0.1
 
@@ -19,7 +19,7 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import normalize
+# from sklearn.preprocessing import normalize
 import matplotlib.pyplot as plt
 import joblib
 import pandas as pd
@@ -135,12 +135,11 @@ def perform_feature_engineering(dataframe, response):
               y_test: y testing data
     '''
     # categorical features
-    cat_columns = [
-        'Gender',
-        'Education_Level',
-        'Marital_Status',
-        'Income_Category',
-        'Card_Category']
+    cat_columns = ['Gender',
+                   'Education_Level',
+                   'Marital_Status',
+                   'Income_Category',
+                   'Card_Category']
 
     # feature engineering
     encoded_df = encoder_helper(
@@ -154,26 +153,25 @@ def perform_feature_engineering(dataframe, response):
     # Create dataframe
     X = pd.DataFrame()
 
-    keep_cols = [
-        'Customer_Age',
-        'Dependent_count',
-        'Months_on_book',
-        'Total_Relationship_Count',
-        'Months_Inactive_12_mon',
-        'Contacts_Count_12_mon',
-        'Credit_Limit',
-        'Total_Revolving_Bal',
-        'Avg_Open_To_Buy',
-        'Total_Amt_Chng_Q4_Q1',
-        'Total_Trans_Amt',
-        'Total_Trans_Ct',
-        'Total_Ct_Chng_Q4_Q1',
-        'Avg_Utilization_Ratio',
-        'Gender_Churn',
-        'Education_Level_Churn',
-        'Marital_Status_Churn',
-        'Income_Category_Churn',
-        'Card_Category_Churn']
+    keep_cols = ['Customer_Age',
+                 'Dependent_count',
+                 'Months_on_book',
+                 'Total_Relationship_Count',
+                 'Months_Inactive_12_mon',
+                 'Contacts_Count_12_mon',
+                 'Credit_Limit',
+                 'Total_Revolving_Bal',
+                 'Avg_Open_To_Buy',
+                 'Total_Amt_Chng_Q4_Q1',
+                 'Total_Trans_Amt',
+                 'Total_Trans_Ct',
+                 'Total_Ct_Chng_Q4_Q1',
+                 'Avg_Utilization_Ratio',
+                 'Gender_Churn',
+                 'Education_Level_Churn',
+                 'Marital_Status_Churn',
+                 'Income_Category_Churn',
+                 'Card_Category_Churn']
 
     # Features DataFrame
     X[keep_cols] = encoded_df[keep_cols]
@@ -321,13 +319,10 @@ def train_models(X_train, X_test, y_train, y_test):
     # Compute ROC curve
     plt.figure(figsize=(15, 8))
     axis = plt.gca()
-    lrc_plot = plot_roc_curve(lrc, X_test, y_test, ax=axis, alpha=0.8)
-    rfc_disp = plot_roc_curve(
-        cv_rfc.best_estimator_,
-        X_test,
-        y_test,
-        ax=axis,
-        alpha=0.8)
+    plot_roc_curve(lrc, X_test, y_test, ax=axis, alpha=0.8)
+    plot_roc_curve(cv_rfc.best_estimator_,
+                              X_test, y_test,
+                              ax=axis, alpha=0.8)
     plt.savefig(fname='./images/results/roc_curve_result.png')
     plt.close()
     # plt.show()
@@ -345,17 +340,14 @@ def train_models(X_train, X_test, y_train, y_test):
 
 if __name__ == '__main__':
     # Import data
-    BANK_DF = import_data(pth='./data/bank_data.csv')
+    BANK_DF = import_data('./data/bank_data.csv')
 
     # Perform EDA
-    EDA_DF = perform_eda(dataframe=BANK_DF)
+    EDA_DF = perform_eda(BANK_DF)
 
     # Feature engineering
-    X_TRAIN, X_TEST, Y_TRAIN, Y_TEST = perform_feature_engineering(
+    X_TRAIN,X_TEST,Y_TRAIN,Y_TEST = perform_feature_engineering(
         dataframe=EDA_DF, response='Churn')
 
     # Model training,prediction and evaluation
-    train_models(X_train=X_TRAIN,
-                 X_test=X_TEST,
-                 y_train=Y_TRAIN,
-                 y_test=Y_TEST)
+    train_models(X_TRAIN,X_TEST,Y_TRAIN,Y_TEST)

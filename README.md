@@ -36,11 +36,11 @@ This version of our code yield the following result using pylint and autopep8 co
 ```
 pylint churn_library.py
 ....
-Your code has been rated at 8.62/10
+Your code has been rated at 9.30/10
 ```
 
 ```
 pylint churn_script_logging_and_tests.py
 ....
-Your code has been rated at 9.66/10
+Your code has been rated at 7.77/10
 

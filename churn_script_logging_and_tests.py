@@ -1,9 +1,9 @@
 '''
 Module contain test for churn customer analysis
 
-Author: Lawal Shakirat Adeyinka
+Author: Sadiq Adewale ADEDAYO
 
-Date: Nov. 4th, 2022
+Date: Dec. 12th, 2022
 
 '''
 
@@ -14,12 +14,10 @@ from math import ceil
 import churn_library as clib
 
 # Invoke basic logging configuration
-logging.basicConfig(
-    filename='./logs/churn_library.log',
-    level=logging.INFO,
-    filemode='w',
-    format='%(asctime)s - %(name)s - %(levelname)s: %(message)s')
-
+logging.basicConfig(filename='./logs/churn_library.log',
+                    level=logging.INFO,
+                    filemode='w',
+                    format='%(asctime)s - %(name)s - %(levelname)s: %(message)s')
 
 def test_import():
     '''
@@ -27,8 +25,8 @@ def test_import():
     '''
     # Test if the CSV file is available
     try:
-        dataframe = clib.import_data("./data/bank_data.csv")
-        logging.info("Testing import_data: SUCCESS")
+        dataframe = clib.import_data('./data/bank_data.csv')
+        logging.info('Testing import_data: SUCCESS')
     except FileNotFoundError as err:
         logging.error("Testing import_data: The file wasn't found")
         raise err
@@ -37,10 +35,8 @@ def test_import():
     try:
         assert dataframe.shape[0] > 0
         assert dataframe.shape[1] > 0
-        logging.info(
-            'Rows: %d\tColumns: %d',
-            dataframe.shape[0],
-            dataframe.shape[1])
+        logging.info('Rows: %d\tColumns: %d',
+                      dataframe.shape[0], dataframe.shape[1])
     except AssertionError as err:
         logging.error(
             "Testing import_data: The file doesn't appear to have rows and columns")
@@ -170,10 +166,10 @@ def test_encoder_helper():
             encoded_df.columns) == len(
             dataframe.columns) + len(cat_columns)
         logging.info(
-            "Testing encoder_helper(data_frame, category_lst=cat_columns, response='Churn'): SUCCESS")
+            "Testing encoder_helper(data_frame,category_lst=cat_columns,response='Churn'):SUCCESS")
     except AssertionError as err:
         logging.error(
-            "Testing encoder_helper(data_frame, category_lst=cat_columns, response='Churn'): ERROR")
+            "Testing encoder_helper(data_frame,category_lst=cat_columns,response='Churn'):ERROR")
         raise err
 
 
@@ -182,24 +178,21 @@ def test_perform_feature_engineering():
     Test perform_feature_engineering() function from the churn_library module
     '''
     # Load the DataFrame
-    dataframe = clib.import_data("./data/bank_data.csv")
+    dataframe = clib.import_data('./data/bank_data.csv')
 
     # Churn feature
     dataframe['Churn'] = dataframe['Attrition_Flag'].\
         apply(lambda val: 0 if val == "Existing Customer" else 1)
 
     try:
-        (_, X_test, _, _) = clib.perform_feature_engineering(
-            dataframe=dataframe,
-            response='Churn')
+        (_,X_test,_,_) = clib.perform_feature_engineering(dataframe=dataframe,
+                                                            response='Churn')
 
         # `Churn` must be present in `data_frame`
         assert 'Churn' in dataframe.columns
-        logging.info(
-            "Testing perform_feature_engineering. `Churn` column is present: SUCCESS")
+        logging.info('Testing perform_feature_engineering. `Churn` column is present: SUCCESS')
     except KeyError as err:
-        logging.error(
-            'The `Churn` column is not present in the DataFrame: ERROR')
+        logging.error('The `Churn` column is not present in the DataFrame: ERROR')
         raise err
 
     try:
@@ -228,13 +221,12 @@ def test_train_models():
         apply(lambda val: 0 if val == "Existing Customer" else 1)
 
     # Feature engineering
-    (X_train, X_test, y_train, y_test) = clib.perform_feature_engineering(
-        dataframe=dataframe,
-        response='Churn')
+    X_train,X_test,y_train,y_test = clib.perform_feature_engineering(dataframe=dataframe,
+                                                                          response='Churn')
 
     # Assert if `logistic_model.pkl` file is present
     try:
-        clib.train_models(X_train, X_test, y_train, y_test)
+        clib.train_models(X_train,X_test,y_train,y_test)
         assert os.path.isfile("./models/logistic_model.pkl") is True
         logging.info('File %s was found', 'logistic_model.pkl')
     except AssertionError as err:
